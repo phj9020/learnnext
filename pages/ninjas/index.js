@@ -2,18 +2,18 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../styles/Ninjas.module.css';
 
-export const getStaticProps = async () => {
+export const getStaticProps = async() => {
     const res = await fetch("https://jsonplaceholder.typicode.com/users");
-    const data = await res.jso
+    const data = await res.json();
     return {
         props: {
             data
         }
     }
-}
+};
 
-function Content(props) {
-    const {data} = props;
+function Content({data}) {
+
     return (
         <>
             <Head>
@@ -23,7 +23,7 @@ function Content(props) {
             </Head>
             <div>
                 <h1>All ninjas</h1>
-                {data && data.map(item => (
+                {data.map(item => (
                     <Link href={`/ninjas/${item.id}`} key={item.id}>
                         <a className={styles.single}>
                             <h3>{item.name}</h3>
